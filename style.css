@@ -1,0 +1,15 @@
+#root {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#ball-canvas {
+    height: 50vh;
+    position: absolute;
+}
+
+#racquet-canvas {
+    height: 50vh;
+    position: absolute;
+}
