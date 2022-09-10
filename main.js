@@ -13,4 +13,3 @@ const root = document.getElementById("root");
     root.appendChild(racquetCanvas);
 
 const game = new Game(root);
-game.check();

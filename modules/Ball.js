@@ -2,7 +2,6 @@ export default class Ball {
     constructor() {
         this.ballCanvas = document.getElementById("ball-canvas");
         this.context = this.ballCanvas.getContext("2d");
-        this.draw();
     }
 
     draw() {

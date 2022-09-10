@@ -5,11 +5,13 @@
 }
 
 #ball-canvas {
-    height: 50vh;
     position: absolute;
 }
 
 #racquet-canvas {
-    height: 50vh;
     position: absolute;
+}
+
+canvas {
+    border: solid 1px;
 }

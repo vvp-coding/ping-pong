@@ -7,6 +7,20 @@ export default class Game {
         this.ball = new Ball();
         this.racquet = new Racquet();
 
+        this.init();
+        
+        this.ball.draw();
+        this.racquet.draw();
+    }
+
+    init() {
+
+        this.racquet.racquetCanvas.setAttribute("width", "600");
+        this.racquet.racquetCanvas.setAttribute("height", "350");
+
+        this.ball.ballCanvas.setAttribute("width", "600");
+        this.ball.ballCanvas.setAttribute("height", "350");
+
         window.addEventListener("keydown", (event) => {
             if (event.code === "ArrowLeft") {
                 this.racquet.left();
@@ -22,10 +36,5 @@ export default class Game {
 
             }
         });
-
-    }
-
-    check() {
-        console.log("It worked!")
     }
 }
