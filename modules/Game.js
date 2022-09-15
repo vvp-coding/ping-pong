@@ -4,7 +4,7 @@ import Racquet from "./Racquet.js";
 export default class Game {
 
     constructor() {
-        this.ball = new Ball();
+        this.ball = new Ball(150, 25);
         this.racquet = new Racquet();
 
         this.init();
