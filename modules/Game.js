@@ -11,6 +11,11 @@ export default class Game {
         
         this.ball.draw();
         this.racquet.draw();
+
+        setInterval((ball, angle, speed) => {
+            ball.move(angle, speed);
+        }, 10, this.ball, Math.random() * 180, 3);
+
     }
 
     init() {
