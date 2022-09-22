@@ -4,15 +4,15 @@ import Racquet from "./Racquet.js";
 export default class Game {
 
     constructor() {
-        this.ball = new Ball(150, 25);
-        this.racquet = new Racquet();
+        this.ball = new Ball(150, 25, this);
+        this.racquet = new Racquet(110, this);
 
         this.init();
         
         this.ball.draw();
         this.racquet.draw();
 
-        setInterval((ball, angle, speed) => {
+        this.ballTimer = setInterval((ball, angle, speed) => {
             ball.move(angle, speed);
         }, 10, this.ball, Math.random() * 180, 3);
 
@@ -42,4 +42,13 @@ export default class Game {
             }
         });
     }
+
+    update({ x, y, object }) {
+        if(object == "Ball") {
+            if(x > this.ball.ballCanvas.width || x < 0 || y > this.ball.ballCanvas.height || y < 0) {
+                clearInterval(this.ballTimer);
+            }
+        }
+    }
+
 }

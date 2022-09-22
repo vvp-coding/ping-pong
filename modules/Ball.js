@@ -1,7 +1,8 @@
 export default class Ball {
-    constructor(x, y) {
+    constructor(x, y, game) {
         this.x = x;
         this.y = y;
+        this.game = game;
 
         this.ballCanvas = document.getElementById("ball-canvas");
         this.context = this.ballCanvas.getContext("2d");
@@ -42,6 +43,8 @@ export default class Ball {
         this.y += dy;
         this.x += dx;
 
+        const message = {x: this.x, y: this.y, object: "Ball"};
+        this.game.update(message);
         this.draw();
     }
     
