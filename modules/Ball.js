@@ -1,14 +1,11 @@
 export default class Ball {
-    constructor(x, y) {
+    constructor(x, y, game) {
         this.x = x;
         this.y = y;
+        this.game = game;
 
         this.ballCanvas = document.getElementById("ball-canvas");
         this.context = this.ballCanvas.getContext("2d");
-
-        setInterval((ball) => {
-            ball.move();
-        }, 10, this);
     }
 
     draw() {
@@ -19,10 +16,35 @@ export default class Ball {
         this.context.closePath();
     }
 
-    move() {
-        let dy = 2;
-        this.y += dy;
+    move(angle, speed) {
+        let dy = 0;
+        let dx = 0;
 
+        if (Math.abs(angle) > 180) {
+            throw Error("Angle must be between -180 and 180!");
+        }
+
+        if(angle == 180 || angle == 90) {
+            angle--;
+        } else if (angle == -180 || angle == -90) {
+            angle++;
+        }
+        
+        if(angle > -90 && angle < 90) {
+            dy = Math.cos(angle) * speed;
+            dx = Math.sin(angle) * speed;
+
+        } else {
+            dy = -(Math.cos(angle) * speed);
+            dx = Math.sin(angle) * speed;
+
+        }
+
+        this.y += dy;
+        this.x += dx;
+
+        const message = {x: this.x, y: this.y, object: "Ball"};
+        this.game.update(message);
         this.draw();
     }
     

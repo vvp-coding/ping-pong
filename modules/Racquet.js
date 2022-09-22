@@ -1,9 +1,11 @@
 export default class Racquet {
-    constructor(x) {
+    constructor(x, game) {
+        this.game = game;
+
         this.racquetCanvas = document.getElementById("racquet-canvas");
         this.context = this.racquetCanvas.getContext("2d");
 
-        this.x = 110;
+        this.x = x;
     }
 
     draw() {
@@ -13,7 +15,8 @@ export default class Racquet {
 
     left() {
         if(this.x - 10 >= 0){
-            this.x -= 10;
+            this.x -= 10;  
+            this.game.update({x: this.x})
             this.draw();
         }
     }
@@ -21,6 +24,7 @@ export default class Racquet {
     right() {
         if(this.x + 10 <= this.racquetCanvas.clientWidth - 100) {
             this.x += 10;
+            this.game.update({x: this.x})
             this.draw();
         }
     }
