@@ -2,6 +2,7 @@ export default class Ball {
     constructor(x, y, game) {
         this.x = x;
         this.y = y;
+        this.radius = 10;
         this.game = game;
 
         this.ballCanvas = document.getElementById("ball-canvas");
@@ -11,7 +12,7 @@ export default class Ball {
     draw() {
         this.context.clearRect(0, 0, this.ballCanvas.clientWidth, this.ballCanvas.clientHeight);
         this.context.beginPath();
-        this.context.arc(this.x, this.y, 10, 0, 2 * Math.PI);
+        this.context.arc(this.x, this.y, this.radius, 0, 2 * Math.PI);
         this.context.fill();
         this.context.closePath();
     }

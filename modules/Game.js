@@ -45,7 +45,8 @@ export default class Game {
 
     update({ x, y, object }) {
         if(object == "Ball") {
-            if(x > this.ball.ballCanvas.width || x < 0 || y > this.ball.ballCanvas.height || y < 0) {
+            if(x > this.ball.ballCanvas.width - this.ball.radius || x < 0 + this.ball.radius || 
+                y > this.ball.ballCanvas.height - this.ball.radius || y < 0 + this.ball.radius) {
                 clearInterval(this.ballTimer);
             }
         }
