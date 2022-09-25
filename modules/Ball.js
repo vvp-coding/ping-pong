@@ -41,11 +41,12 @@ export default class Ball {
 
         }
 
+        const message = {x: this.x + dx, y: this.y + dy, object: "Ball"};
+        this.game.update(message);
+
         this.y += dy;
         this.x += dx;
 
-        const message = {x: this.x, y: this.y, object: "Ball"};
-        this.game.update(message);
         this.draw();
     }
     
