@@ -1,5 +1,5 @@
 import Wall from "./Wall.js";
-
+import { Angle } from "./Trig.js";
 export default class Ball {
     constructor(x, y, game) {
         this.x = x;
@@ -41,12 +41,12 @@ export default class Ball {
         }
         
         if(angle > -90 && angle < 90) {
-            dy = Math.cos(angle) * speed;
-            dx = Math.sin(angle) * speed;
+            dy = Math.cos(Angle.toRad(angle)) * speed;
+            dx = Math.sin(Angle.toRad(angle)) * speed;
 
         } else {
-            dy = -(Math.cos(angle) * speed);
-            dx = Math.sin(angle) * speed;
+            dy = -(Math.cos(Angle.toRad(angle)) * speed);
+            dx = Math.sin(Angle.toRad(angle)) * speed;
 
         }
 
@@ -55,23 +55,38 @@ export default class Ball {
 
         this.y += dy;
         this.x += dx;
+        this.angle = angle;
+        this.speed = speed;
 
         this.draw();
     }
     
     bounce(obj) {
 
-        if(obj instanceof Wall) {
-            if(obj.position === "left") {
-                this.angle = 90 - Math.abs(this.angle);
-            } else if(obj.position === "right") {
-                this.angle = -(90 - this.angle);
+        if(obj) {
+            // ball bouncing from an object:
+            if(obj instanceof Wall) {
+                if(obj.position === "left") {
+                    this.angle = 90 - Math.abs(this.angle);
+                } else if(obj.position === "right") {
+                    this.angle = -(90 - this.angle);
+                }
             }
+    
+            return setInterval((ball, angle, speed) => {
+                ball.move(angle, speed);
+            }, 10, this, this.angle, 3);
         }
+
+        // otherwise, just start moving in a random direction 
+        const angle = Math.random() * 70;
+        // lets also randomly pick a sign for it as well:
+        const sign = Math.sign(Math.cos(Math.random() * Math.PI));
 
         return setInterval((ball, angle, speed) => {
             ball.move(angle, speed);
-        }, 10, this, this.angle, 3);
+        }, 10, this, sign * angle, 3);
+        
     }
 
 } 
