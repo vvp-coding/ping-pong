@@ -1,5 +1,6 @@
 import Ball from "./Ball.js";
 import Racquet from "./Racquet.js";
+import Wall from "./Wall.js";
 
 export default class Game {
 
@@ -45,9 +46,29 @@ export default class Game {
 
     update({ x, y, object }) {
         if(object == "Ball") {
-            if(x > this.ball.ballCanvas.width - this.ball.radius || x < 0 + this.ball.radius || 
-                y > this.ball.ballCanvas.height - this.ball.radius || y < 0 + this.ball.radius) {
+
+            if(x > this.ball.ballCanvas.width - this.ball.properties.radius) {
+
                 clearInterval(this.ballTimer);
+                const wall = new Wall(this.ball.ballCanvas.width, 0, 0, this.ball.ballCanvas.height, "right");
+                this.ballTimer = this.ball.bounce(wall);
+
+            } else if(x < 0 + this.ball.properties.radius) {
+
+                clearInterval(this.ballTimer);
+                const wall = new Wall(0, 0, 0, this.ball.ballCanvas.height, "left");
+                this.ballTimer = this.ball.bounce(wall);
+
+            } else if(y > this.ball.ballCanvas.height - this.ball.properties.radius) {
+                
+                clearInterval(this.ballTimer);
+
+            } else if(y < 0 + this.ball.properties.radius) {
+
+                clearInterval(this.ballTimer);
+                const wall = new Wall(0, 0, this.ball.ballCanvas.width, 0, "top");
+                this.ballTimer = this.ball.bounce(wall);
+
             }
 
             const intersectionCoords = this.getLineIntersection(this.racquet.x, this.racquet.y, this.racquet.x + this.racquet.properties.width, this.racquet.y,
