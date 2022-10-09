@@ -74,6 +74,7 @@ export default class Game {
 
             if(intersectionCoords) {
                 clearInterval(this.ballTimer);
+                this.ballTimer = this.ball.bounce(this.racquet);
             }
 
         }

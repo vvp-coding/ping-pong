@@ -1,5 +1,6 @@
 import Wall from "./Wall.js";
 import { Angle } from "./Trig.js";
+import Racquet from "./Racquet.js";
 export default class Ball {
     constructor(x, y, game) {
         this.x = x;
@@ -44,10 +45,17 @@ export default class Ball {
             dy = Math.cos(Angle.toRad(angle)) * speed;
             dx = Math.sin(Angle.toRad(angle)) * speed;
 
-        } else {
-            dy = -(Math.cos(Angle.toRad(angle)) * speed);
-            dx = Math.sin(Angle.toRad(angle)) * speed;
+        } else if(angle < -90 && angle > -180) {
+            // angle to calculate dx and dy
+            let a = -90 - angle;
+            dy = -(Math.sin(Angle.toRad(a)) * speed);
+            dx = -(Math.cos(Angle.toRad(a)) * speed);
 
+        } else if(angle > 90 && angle < 180) {
+            // angle to calculate dx and dy
+            let a = angle - 90;
+            dy = -(Math.sin(Angle.toRad(a)) * speed);
+            dx = (Math.cos(Angle.toRad(a)) * speed);
         }
 
         const message = {x: this.x + dx, y: this.y + dy, object: "Ball"};
@@ -70,6 +78,12 @@ export default class Ball {
                     this.angle = 90 - Math.abs(this.angle);
                 } else if(obj.position === "right") {
                     this.angle = -(90 - this.angle);
+                }
+            } else if(obj instanceof Racquet) {
+                if(this.angle < 0) {
+                    this.angle = -180 - this.angle;
+                } else if(this.angle > 0){
+                    this.angle = 180 - this.angle;
                 }
             }
     
